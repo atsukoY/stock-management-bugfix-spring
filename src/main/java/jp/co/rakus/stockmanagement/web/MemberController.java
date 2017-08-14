@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.stockmanagement.domain.Member;
 import jp.co.rakus.stockmanagement.service.MemberService;
@@ -22,7 +23,6 @@ import jp.co.rakus.stockmanagement.service.MemberService;
 @RequestMapping("/member")
 @Transactional
 public class MemberController {
-
 	@Autowired
 	private MemberService memberService;
 
