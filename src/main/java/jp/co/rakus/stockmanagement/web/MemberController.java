@@ -53,14 +53,20 @@ public class MemberController {
 	 */
 	
 	@RequestMapping(value = "create")
-	public String create(@Validated MemberForm form,BindingResult result) {
+	public String create(@Validated MemberForm form,BindingResult result,Model model) {
 		if(result.hasErrors()){
 			
 			return form();
 		}
 		Member member = new Member();
 		BeanUtils.copyProperties(form, member);
-		memberService.save(member);
+		try{
+			memberService.save(member);
+		}catch(Exception e){
+			
+			model.addAttribute("errors","すでに登録されたメールアドレスです。");
+			return form();
+		}
 		
 		return "redirect:/";
 	}

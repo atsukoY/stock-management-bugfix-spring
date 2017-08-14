@@ -9,26 +9,30 @@
 			<table class="table table-striped">
 			  <tr>
 			    <th>
-			     	 氏名  <form:errors path="name" cssStyle="color:red"/>
+			     	 氏名  
 			    </th>
 			    <td>
+			        <form:errors path="name" cssStyle="color:red" element="div"/>
 			    	<form:input path="name"  placeholder="Name"/>
 			    </td>
 			  </tr>
 			  <tr>
 			    <th>
-			      	メールアドレス  <form:errors path="mailAddress" cssStyle="color:red"/>
+			      	メールアドレス  
 			    </th>
 			    <td>
+			    	<form:errors path="mailAddress" cssStyle="color:red" element="div"/>
+			    	<c:out value="${errors}" />
 			    	<form:input path="mailAddress" placeholder="Email"/>
 			    </td>
 			  </tr>
 			  <tr>
 			    <th>
-			     	 パスワード  <form:errors path="password" cssStyle="color:red"/>
+			     	 パスワード  
 			    </th>
 			    <td>
-			    	<form:password path="password" placeholder="Password"/>
+			    	<form:errors path="password" cssStyle="color:red" element="div"/>
+			    	<form:password path="password" placeholder="Password" cssStyle="color:red" element="div"/>
 			    </td>
 			  </tr>
 			  <tr>
