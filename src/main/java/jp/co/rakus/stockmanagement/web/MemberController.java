@@ -53,11 +53,9 @@ public class MemberController {
 	 */
 	
 	@RequestMapping(value = "create")
-	public String create(@Validated MemberForm form,BindingResult result, 
-			Model model) {
+	public String create(@Validated MemberForm form,BindingResult result) {
 		if(result.hasErrors()){
 			
-			model.addAttribute("BindingResult", result);
 			return form();
 		}
 		Member member = new Member();
