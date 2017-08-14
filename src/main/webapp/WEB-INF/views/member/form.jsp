@@ -9,7 +9,7 @@
 			<table class="table table-striped">
 			  <tr>
 			    <th>
-			     	 氏名
+			     	 氏名  <form:errors path="name" cssStyle="color:red"/>
 			    </th>
 			    <td>
 			    	<form:input path="name"  placeholder="Name"/>
@@ -17,7 +17,7 @@
 			  </tr>
 			  <tr>
 			    <th>
-			      	メールアドレス
+			      	メールアドレス  <form:errors path="mailAddress" cssStyle="color:red"/>
 			    </th>
 			    <td>
 			    	<form:input path="mailAddress" placeholder="Email"/>
@@ -25,7 +25,7 @@
 			  </tr>
 			  <tr>
 			    <th>
-			     	 パスワード
+			     	 パスワード  <form:errors path="password" cssStyle="color:red"/>
 			    </th>
 			    <td>
 			    	<form:password path="password" placeholder="Password"/>
