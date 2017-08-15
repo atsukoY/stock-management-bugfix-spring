@@ -60,10 +60,12 @@ public class MemberController {
 		}
 		//メールアドレスがすでにあるエラー
 		Member resultMember = memberService.findByMail(form.getMailAddress());
+			
 		if(resultMember != null){
 			
 			result.rejectValue("mailAddress",null,"メールアドレスがすでに登録されています。");
 		}
+		
 		
 		if(result.hasErrors()) {
 			
