@@ -33,6 +33,16 @@ public class MemberService {
 		return memberRepository.save(member);
 	}
 	
+	/**
+	 * メールアドレスがあるかどうか検索します.
+	 * @param mail メールアドレス
+	 * @return　結果（あったらfalse,なかったらtrue)
+	 */
+	public Boolean findMail(String mail){
+		
+		return memberRepository.findMail(mail);
+	}
+	
 //	public Member update(Member member){
 //		return memberRepository.save(member);
 //	}

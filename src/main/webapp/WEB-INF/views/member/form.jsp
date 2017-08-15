@@ -22,7 +22,6 @@
 			    </th>
 			    <td>
 			    	<form:errors path="mailAddress" cssStyle="color:red" element="div"/>
-			    	<c:out value="${errors}" />
 			    	<form:input path="mailAddress" placeholder="Email"/>
 			    </td>
 			  </tr>
@@ -32,12 +31,22 @@
 			    </th>
 			    <td>
 			    	<form:errors path="password" cssStyle="color:red" element="div"/>
-			    	<form:password path="password" placeholder="Password" cssStyle="color:red" element="div"/>
+			    	<form:password path="password" placeholder="Password"/>
 			    </td>
 			  </tr>
 			  <tr>
-			  	<td></td>
-			    <td>
+			  	<th>
+			  		確認パスワード
+			  	</th>
+			  	<td>
+			  		<form:errors path="password2" cssStyle="color:red" element="div"/>
+			  		<form:password path="password2" placeholder="Password"/>
+			  	</td>
+			  </tr>
+			   <tr>
+			   <th>
+			   </th>
+			   	<td>
 					<input class="btn" type="submit" value="登録">
 			    </td>
 			  </tr>

@@ -9,7 +9,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jp.co.rakus.stockmanagement.domain.Member;
 import jp.co.rakus.stockmanagement.service.MemberService;
@@ -54,21 +53,41 @@ public class MemberController {
 	
 	@RequestMapping(value = "create")
 	public String create(@Validated MemberForm form,BindingResult result,Model model) {
+		boolean errors= false;
+		//入力値エラー
 		if(result.hasErrors()){
 			
-			return form();
+			errors=true;
 		}
-		Member member = new Member();
-		BeanUtils.copyProperties(form, member);
-		try{
-			memberService.save(member);
-		}catch(Exception e){
+		//パスワード確認一致できないエラー
+		if(!form.getPassword().equals(form.getPassword2())){
 			
-			model.addAttribute("errors","すでに登録されたメールアドレスです。");
+			result.rejectValue("password2",null,"入力したパスワードと確認用パスワードが一致しません。");
+			errors = true;
+		}
+		//メールアドレスがすでにあるエラー
+		boolean mailResult = memberService.findMail(form.getMailAddress());
+		if(mailResult){
+			
+			result.rejectValue("mailAddress",null,"メールアドレスがすでに登録されています。");
+			errors = true;
+		}
+		
+		if(errors) {
+			
 			return form();
 		}
 		
+		
+		Member member = new Member();
+			BeanUtils.copyProperties(form, member);
+			memberService.save(member);
+			
+			
+		
+		
 		return "redirect:/";
 	}
-	
 }
+
+
