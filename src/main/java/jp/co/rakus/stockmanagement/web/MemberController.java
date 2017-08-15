@@ -53,27 +53,19 @@ public class MemberController {
 	
 	@RequestMapping(value = "create")
 	public String create(@Validated MemberForm form,BindingResult result,Model model) {
-		boolean errors= false;
-		//入力値エラー
-		if(result.hasErrors()){
-			
-			errors=true;
-		}
 		//パスワード確認一致できないエラー
 		if(!form.getPassword().equals(form.getPassword2())){
 			
 			result.rejectValue("password2",null,"入力したパスワードと確認用パスワードが一致しません。");
-			errors = true;
 		}
 		//メールアドレスがすでにあるエラー
-		boolean mailResult = memberService.findMail(form.getMailAddress());
-		if(mailResult){
+		Member resultMember = memberService.findByMail(form.getMailAddress());
+		if(resultMember != null){
 			
 			result.rejectValue("mailAddress",null,"メールアドレスがすでに登録されています。");
-			errors = true;
 		}
 		
-		if(errors) {
+		if(result.hasErrors()) {
 			
 			return form();
 		}

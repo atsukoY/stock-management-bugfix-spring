@@ -38,9 +38,9 @@ public class MemberService {
 	 * @param mail メールアドレス
 	 * @return　結果（あったらfalse,なかったらtrue)
 	 */
-	public Boolean findMail(String mail){
+	public Member findByMail(String mail){
 		
-		return memberRepository.findMail(mail);
+		return memberRepository.findByMail(mail);
 	}
 	
 //	public Member update(Member member){

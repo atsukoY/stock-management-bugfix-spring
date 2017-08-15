@@ -17,8 +17,6 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public class MemberRepository {
-	@Autowired
-	private NamedParameterJdbcTemplate template;
 	
 	/**
 	 * ResultSetオブジェクトからMemberオブジェクトに変換するためのクラス実装&インスタンス化
@@ -80,19 +78,19 @@ public class MemberRepository {
 	 * @param mail メールアドレス
 	 * @return　結果（あればfalse,なければtrue)
 	 */
-	public Boolean findMail(String mail){
-		System.out.println(mail);
+	public Member findByMail(String mail){
 		try{
 			String sql ="select id,name,mail_address,password FROM members WHERE mail_address= :mailAddress;";
 			SqlParameterSource param = new MapSqlParameterSource().addValue("mailAddress",mail);
-			template.queryForObject(sql,param,MEMBER_ROW_MAPPER);
 			
-		}catch(Exception e){
-			
-			return false;
-			
-		}
+			Member member = jdbcTemplate.queryForObject(sql,param,MEMBER_ROW_MAPPER);
+			return member;
+					
+			} catch(DataAccessException e) {
+				e.printStackTrace();
+				return null;
+			}
+		}	
 		
-		return true;
-	}
 }
+
