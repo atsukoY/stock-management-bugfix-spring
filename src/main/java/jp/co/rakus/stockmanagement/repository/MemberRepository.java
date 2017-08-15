@@ -74,9 +74,9 @@ public class MemberRepository {
 	}
 
 	/**
-	 * メールアドレスの登録有無の確認を行います.
+	 * メールアドレスでDB内のデータを検索します.
 	 * @param mail メールアドレス
-	 * @return　結果（あればfalse,なければtrue)
+	 * @return　取得したデータを返します
 	 */
 	public Member findByMail(String mail){
 		try{

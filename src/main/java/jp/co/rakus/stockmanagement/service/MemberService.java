@@ -36,7 +36,7 @@ public class MemberService {
 	/**
 	 * メールアドレスがあるかどうか検索します.
 	 * @param mail メールアドレス
-	 * @return　結果（あったらfalse,なかったらtrue)
+	 * @return　メンバー情報を返します
 	 */
 	public Member findByMail(String mail){
 		
