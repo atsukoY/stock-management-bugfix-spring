@@ -4,6 +4,7 @@ import jp.co.rakus.stockmanagement.domain.Member;
 import jp.co.rakus.stockmanagement.repository.MemberRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 /**
@@ -26,10 +27,19 @@ public class MemberService {
 //	}
 	
 	public Member findOneByMailAddressAndPassword(String mailAddress, String password){
-		return memberRepository.findByMailAddressAndPassword(mailAddress, password);
+		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+		String encoderPass = encoder.encode(password);
+		System.out.println(encoderPass);
+		Member member = memberRepository.findByMailAddressAndPassword(mailAddress, encoderPass);
+		
+		return member;
 	}
 	
 	public Member save(Member member){
+		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+		String encoderPass = encoder.encode(member.getPassword());
+		member.setPassword(encoderPass);
+		
 		return memberRepository.save(member);
 	}
 	

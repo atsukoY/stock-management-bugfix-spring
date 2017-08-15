@@ -1,5 +1,7 @@
 package jp.co.rakus.stockmanagement.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * メンバー情報を保持するエンティティ.
  * @author rakus
@@ -12,6 +14,7 @@ public class Member {
 	/** メールアドレス */
 	private String mailAddress;
 	/** パスワード */
+	@JsonIgnore
 	private String password;
 	public Member() {}
 	public Member(Integer id, String name, String mailAddress, String password) {

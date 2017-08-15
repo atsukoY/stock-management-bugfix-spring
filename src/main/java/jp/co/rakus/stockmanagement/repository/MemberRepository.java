@@ -1,7 +1,5 @@
 package jp.co.rakus.stockmanagement.repository;
 
-import jp.co.rakus.stockmanagement.domain.Member;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.RowMapper;
@@ -10,6 +8,8 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
+
+import jp.co.rakus.stockmanagement.domain.Member;
 
 /**
  * membersテーブル操作用のリポジトリクラス.
@@ -59,6 +59,7 @@ public class MemberRepository {
 	 * @return　保存または更新されたメンバー情報
 	 */
 	public Member save(Member member) {
+		
 		SqlParameterSource param = new BeanPropertySqlParameterSource(member);
 		if (member.getId() == null) {
 			jdbcTemplate.update(
