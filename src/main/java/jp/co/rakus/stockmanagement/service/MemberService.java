@@ -1,11 +1,12 @@
 package jp.co.rakus.stockmanagement.service;
 
-import jp.co.rakus.stockmanagement.domain.Member;
-import jp.co.rakus.stockmanagement.repository.MemberRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import jp.co.rakus.stockmanagement.domain.Member;
+import jp.co.rakus.stockmanagement.repository.MemberRepository;
 
 /**
  * メンバー関連サービスクラス.
@@ -18,6 +19,9 @@ public class MemberService {
 	@Autowired
 	MemberRepository memberRepository;
 	
+	@Autowired
+	PasswordEncoder encoder;
+	
 //	public List<Member> findAll(){
 //		return memberRepository.findAll();
 //	}
@@ -27,10 +31,10 @@ public class MemberService {
 //	}
 	
 	public Member findOneByMailAddressAndPassword(String mailAddress, String password){
-		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+//		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
 		String encoderPass = encoder.encode(password);
 		System.out.println(encoderPass);
-		Member member = memberRepository.findByMailAddressAndPassword(mailAddress, encoderPass);
+		Member member = memberRepository.findByMail(mailAddress);
 		if(new StandardPasswordEncoder().matches(password,member.getPassword())){
 			
 			return member;
@@ -42,7 +46,7 @@ public class MemberService {
 	}
 	
 	public Member save(Member member){
-		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
+//		StandardPasswordEncoder encoder = new StandardPasswordEncoder();
 		String encoderPass = encoder.encode(member.getPassword());
 		member.setPassword(encoderPass);
 		

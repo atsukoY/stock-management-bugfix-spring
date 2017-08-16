@@ -59,9 +59,9 @@ public class MemberController {
 			result.rejectValue("password2",null,"入力したパスワードと確認用パスワードが一致しません。");
 		}
 		//メールアドレスがすでにあるエラー
-		Member resultMember = memberService.findByMail(form.getMailAddress());
+		Member existMember = memberService.findByMail(form.getMailAddress());
 			
-		if(resultMember != null){
+		if(existMember != null){
 			
 			result.rejectValue("mailAddress",null,"メールアドレスがすでに登録されています。");
 		}
