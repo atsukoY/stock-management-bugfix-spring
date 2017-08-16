@@ -31,8 +31,14 @@ public class MemberService {
 		String encoderPass = encoder.encode(password);
 		System.out.println(encoderPass);
 		Member member = memberRepository.findByMailAddressAndPassword(mailAddress, encoderPass);
+		if(new StandardPasswordEncoder().matches(password,member.getPassword())){
+			
+			return member;
+		}else{
+			
+			return null;
+		}
 		
-		return member;
 	}
 	
 	public Member save(Member member){
