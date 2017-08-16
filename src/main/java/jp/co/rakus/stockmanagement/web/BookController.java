@@ -1,7 +1,11 @@
 package jp.co.rakus.stockmanagement.web;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.List;
 
+import javax.servlet.annotation.WebServlet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,6 +27,7 @@ import jp.co.rakus.stockmanagement.service.BookService;
 @Controller
 @RequestMapping("/book")
 @Transactional
+@WebServlet("/UploadServlet")
 public class BookController {
 	@Autowired
 	private BookService bookService;
@@ -33,6 +38,16 @@ public class BookController {
 	@ModelAttribute
 	public BookForm setUpForm() {
 		return new BookForm();
+	}
+	
+	/**
+	 * 登録用フォームを初期化します.
+	 * @return 登録用フォーム
+	 */
+	@ModelAttribute
+	public RegisterBookForm setUpRegisterForm(){
+		
+		return new RegisterBookForm();
 	}
 	
 	/**
@@ -77,5 +92,47 @@ public class BookController {
 		bookService.update(book);
 		return list(model);
 	}
+	
+	/**
+	 * 登録データ画面に移動します.
+	 * @return 登録データ画面
+	 */
+	@RequestMapping("/registerInput")
+	public String registerInput(){
+		
+		return "book/register";
+	}
+	
+	/**
+	 * 入力されたデータを登録します.
+	 * @param form 入力したデータ
+	 * @param model　モデルオブジェクト
+	 * @return　リスト一覧にもどる
+	 * @throws IOException ネット上のエラーを無視します
+	 * @throws IllegalStateException　 不正の文を無視します
+	 * @throws ParseException 構文解析のエラー
+	 */
+	@RequestMapping("/register")
+	public String register(RegisterBookForm form, Model model) throws IllegalStateException, IOException, ParseException{
+		
+		Book book = new Book();
+		book.setName(form.getName());
+		book.setAuthor(form.getAuthor());
+		book.setPublisher(form.getPublisher());
+		book.setPrice(form.getIntPrcice());
+		book.setIsbncode(form.getIsbnCode());
+		book.setSaledate(form.getDateSaleDate());
+		book.setExplanation(form.getExplanation());
+		form.getImage().transferTo(new File("C:/env/workspace-web/stock-management-bugfix-spring/src/main/webapp/img/"+form.getImage().getOriginalFilename()));
+		String imageName= form.getImage().getOriginalFilename();
+		book.setImage(imageName);
+		book.setStock(form.getIntStock());
+		bookService.save(book);
+		
+		return list(model);
+	}
+
 
 }
+
+

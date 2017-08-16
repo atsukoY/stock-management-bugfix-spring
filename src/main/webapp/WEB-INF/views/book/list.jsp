@@ -4,6 +4,7 @@
 <div class="container">
 	<c:out value="${member.name}"/>さん　こんにちは！<br>
 	<a href="${pageContext.request.contextPath}/logout/sessionInvalidate">ログアウト</a>
+	<a href="${pageContext.request.contextPath}/book/registerInput">書籍登録</a>
 	<h3>書籍一覧</h3>
 	<div class="span8">
 		<div class="row">
